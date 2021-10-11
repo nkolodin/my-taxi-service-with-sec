@@ -1,0 +1,1 @@
+Alter table taxi_drive_info add column city varchar(20);

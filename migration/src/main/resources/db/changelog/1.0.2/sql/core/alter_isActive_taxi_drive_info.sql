@@ -1,0 +1,1 @@
+ALTER TABLE taxi_drive_info ADD COLUMN active BOOLEAN

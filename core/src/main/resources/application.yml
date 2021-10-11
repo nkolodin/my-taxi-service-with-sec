@@ -1,0 +1,9 @@
+application:
+  rabbit:
+    enable: true
+logging:
+  level:
+    ru.digitalleague.core: debug
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
