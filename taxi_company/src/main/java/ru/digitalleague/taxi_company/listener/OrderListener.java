@@ -33,7 +33,8 @@ public class OrderListener implements MessageListener {
         byte[] bytes = message.getBody();
         Order order = objectMapper.readValue(bytes, Order.class);
         OrderDetails orderDetails = objectMapper.readValue(bytes, OrderDetails.class);
-        /*tripController.tripStart(orderDetails);*/
+
+
         /**
          * Выводит в таком формате OrderDetails@b160696
          * Также не дает использовать методы orderDetails.getCarModel и тд
@@ -43,6 +44,10 @@ public class OrderListener implements MessageListener {
          * в order подставляются значения Order(orderId=null, level=1, city=Moscow, clientNumber=1, driverId=null, startTrip=null, endTrip=null)
          */
         log.info("Received message from rabbitmq " + order);
+        /**
+         * здесь выдает ошибку циклическую
+         */
+        tripController.tripStart(order);
     }
 
 }
