@@ -1,33 +1,40 @@
 package ru.digitalleague.taxi_company.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.digitalleague.core.model.OrderDetails;
+import org.springframework.web.servlet.view.RedirectView;
 import ru.digitalleague.taxi_company.mapper.OrderMapper;
 import ru.digitalleague.taxi_company.model.Order;
-import ru.digitalleague.taxi_company.service.OrderServiceImpl;
 
 @RestController
 public class TripController {
 
-    @Autowired
-    final private OrderMapper orderMapper;
-    final private OrderServiceImpl orderService;
+    private final OrderMapper orderMapper;
 
-    public TripController(OrderMapper orderMapper, OrderServiceImpl orderService) {
+    public TripController(OrderMapper orderMapper) {
         this.orderMapper = orderMapper;
-        this.orderService = orderService;
     }
 
-
-    public void tripStart(Order order){
-        orderMapper.saveOrder(order);
-        /*orderMapper.orders().toString();*/
-
-        /*orderService.selectDriver();*/
-       /* orderMapper.setStartTime(1L);*/
+    /**
+     * При вызове контроллера передаются данные о времени начала в order
+     *
+     * @param order - данные заказа, для добавления времени начала
+     */
+    @ApiOperation(value = "Контроллер для начала поездки")
+    @PostMapping("/start_trip")
+    public void setStartTime(@RequestBody Order order){
+        orderMapper.setStartTime(order.getOrderId());
     }
 
+    /**
+     * Контроллер передает данные в талицу order об окончании заказа
+     * @param order - данные заказа, для добавления времени окончания
+     */
+    @ApiOperation(value = "Контроллер для окончания поездки")
+    @PostMapping("/end_trip")
+    public void setEndTime(@RequestBody Order order){
+        orderMapper.setEndTime(order.getOrderId());
+    }
 }

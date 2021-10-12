@@ -3,6 +3,7 @@ package ru.digitalleague.taxi_company.model;
 import lombok.Data;
 
 import java.lang.annotation.Target;
+import java.sql.Timestamp;
 import java.time.OffsetDateTime;
 
 @Data
@@ -11,11 +12,8 @@ public class Order {
     /**
      * Идентификатор поездки.
      */
+
     private Long orderId;
-
-    private Long level;
-
-    private String city;
 
     /**
      * Идентификатор клиента.
@@ -30,11 +28,11 @@ public class Order {
     /**
      * Дата, время начала поездки.
      */
-    private OffsetDateTime startTrip;
+    private Timestamp startTrip;
 
     /**
      * Дата, время окончания поездки.
      */
-    private OffsetDateTime endTrip;
+    private Timestamp endTrip;
 
 }

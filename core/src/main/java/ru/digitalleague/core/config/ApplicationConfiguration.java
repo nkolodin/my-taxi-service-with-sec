@@ -25,7 +25,7 @@ public class ApplicationConfiguration {
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.postgresql.Driver");
-        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/taxi-service?currentSchema=test");
+        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/taxi-service?currentSchema=taxi-service-test");
         dataSourceBuilder.username("postgres");
         dataSourceBuilder.password("135246");
         return dataSourceBuilder.build();

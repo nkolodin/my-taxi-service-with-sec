@@ -12,12 +12,17 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import ru.digitalleague.taxi_company.listener.OrderListener;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 @Slf4j
@@ -25,6 +30,9 @@ public class ApplicationConfiguration {
 
     @Value("${application.broker.receive-queue}")
     private String queueName;
+
+    @Autowired
+    private OrderListener orderListener;
 
     @Bean
     public ConnectionFactory connectionFactory() {
@@ -61,7 +69,7 @@ public class ApplicationConfiguration {
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.postgresql.Driver");
-        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/taxi-service?currentSchema=test");
+        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/taxi-service?currentSchema=taxi-service-test");
         dataSourceBuilder.username("postgres");
         dataSourceBuilder.password("135246");
         return dataSourceBuilder.build();
@@ -80,7 +88,16 @@ public class ApplicationConfiguration {
         simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
         // устанавливаем очередь, которую будет слушать приложение
         simpleMessageListenerContainer.setQueues(myQueue3());
-        simpleMessageListenerContainer.setMessageListener(new OrderListener());
+        simpleMessageListenerContainer.setMessageListener(orderListener);
         return simpleMessageListenerContainer;
+    }
+
+    @Bean
+    public Docket apiDocket() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build();
     }
 }

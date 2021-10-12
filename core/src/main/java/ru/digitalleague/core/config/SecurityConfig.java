@@ -20,7 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/order-taxi").permitAll();
+                .antMatchers("/order-taxi").permitAll()
+                .antMatchers("/trip-start").permitAll();
     }
 
     @Bean

@@ -73,5 +73,9 @@
     <changeSet id="2021-10-10 19:56:00" author="nkolodin">
         <sqlFile path="sql/core/alter_isActive_taxi_drive_info.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    <changeSet id="2021-10-12 15:30:00" author="nkolodin">
+        <sqlFile path="sql/core/alter_driver_rating.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 
 </databaseChangeLog>
