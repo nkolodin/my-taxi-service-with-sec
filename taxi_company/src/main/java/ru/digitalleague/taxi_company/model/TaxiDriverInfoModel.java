@@ -33,6 +33,11 @@ public class TaxiDriverInfoModel {
     private String carModel;
 
     /**
+     * Рейтинг водителя.
+     */
+    private String rating;
+
+    /**
      * Дата создания.
      */
     private OffsetDateTime createDttm;

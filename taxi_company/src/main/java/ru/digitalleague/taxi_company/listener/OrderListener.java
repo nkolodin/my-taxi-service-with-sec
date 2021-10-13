@@ -18,8 +18,11 @@ public class OrderListener implements MessageListener {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Autowired
-    private OrderServiceImpl orderService = new OrderServiceImpl();
+    private final OrderServiceImpl orderService;
+
+    public OrderListener(OrderServiceImpl orderService) {
+        this.orderService = orderService;
+    }
 
     @SneakyThrows
     public void onMessage(Message message) {

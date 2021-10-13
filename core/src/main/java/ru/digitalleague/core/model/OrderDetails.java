@@ -31,5 +31,4 @@ public class OrderDetails {
      */
     @ApiModelProperty("Город")
     private String city;
-
 }
